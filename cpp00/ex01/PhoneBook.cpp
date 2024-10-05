@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 18:45:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/05 21:58:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/05 23:13:02 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,15 @@ void PhoneBook::search() {
 	std::cout << "Enter index to view contact detail: ";
 	int index = -1;
 	std::cin >> index;
-	std::cin.ignore(1024, '\n');
-	if (std::cin.fail() || index < 0 || index >= 8) {
-		std::cout << "Oops! You've entered an invalid index 😅" << std::endl;
+	if (std::cin.fail()) {
+		std::cout << "Oops! Please enter a number 😅" << std::endl;
 		std::cin.clear();
+		std::cin.ignore(1024, '\n');
+		return ;
+	}
+	std::cin.ignore(1024, '\n');
+	if (index < 0 || index >= 8) {
+		std::cout << "Oops! You've entered an invalid index 😅" << std::endl;
 		return;
 	}
 	displayContact(this->contacts[index]);

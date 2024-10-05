@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:21:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/05 21:02:09 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/05 23:31:41 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ int main(void) {
 	std::cout << "Welcome to phonebook service! The service allows you to:\n";
 	std::cout << " - ADD: save a new contact.\n";
 	std::cout << " - SEARCH: display a specific contact.\n";
-	std::cout << " - EXIT: quit program and the contacts are lost forever!" << std::endl;
+	std::cout << " - EXIT: quit program and the contacts are lost forever!\n" << std::endl;
 
-	std::string option;
+	std::string command;
 	while (true)
 	{
-		std::cout << "👉 ADD | SEARCH | EXIT 👈" << std::endl;
-		std::getline(std::cin, option);
-		if (option == "EXIT") {
+		std::cout << "🤔 What now? (ADD | SEARCH | EXIT) ";
+		std::getline(std::cin, command);
+		if (command == "EXIT") {
 			phoneBook.exit();
 			break;
 		}
-		if (option != "ADD" && option != "SEARCH") {
-			std::cout << "😿 unsupported option!" << std::endl;
+		if (command != "ADD" && command != "SEARCH") {
+			std::cout << "Unknown command: " << command << std::endl;
 			continue;
 		}
-		if (option == "ADD") {
+		if (command == "ADD") {
 			phoneBook.add();
-		} else if (option == "SEARCH") {
+		} else if (command == "SEARCH") {
 			phoneBook.search();
 		}
 	}

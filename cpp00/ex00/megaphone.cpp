@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:27 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/04 14:31:36 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/05 23:41:35 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 	for (int i = 0; argv[i] != NULL; i++) {
 		std::string arg = argv[i];
 		for (char& c : arg) {
-			c = std::toupper(c);
+			c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
 		}
 		std::cout << arg;
 	}

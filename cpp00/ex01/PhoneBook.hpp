@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 17:39:05 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/05 21:56:36 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/06 20:54:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 class PhoneBook {
 	private:
-		int index;
-		Contact contacts[8];
+		int _index;
+		Contact _contacts[8];
 
-		std::string validateInput(const std::string& input);
+		static std::string _validateInput(const std::string& input);
 
 	public:
 		PhoneBook();

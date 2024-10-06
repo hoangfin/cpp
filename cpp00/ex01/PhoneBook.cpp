@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 18:45:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/05 23:13:02 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/06 20:55:27 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ PhoneBook::PhoneBook() {}
 
 PhoneBook::~PhoneBook() {}
 
-std::string PhoneBook::validateInput(const std::string& input) {
+std::string PhoneBook::_validateInput(const std::string& input) {
 	if (input.length() > 10) {
 		return input.substr(0, 9) + ".";
 	}
@@ -49,8 +49,8 @@ void PhoneBook::add() {
 	std::getline(std::cin, input);
 	contact.setDarkestSecret(input);
 
-	this->contacts[this->index % 8] = contact;
-	this->index++;
+	_contacts[_index % 8] = contact;
+	_index++;
 	std::cout << "🎉🎉🎉 Entry '" << contact.getFirstName() << "' has been added!" << std::endl;
 }
 
@@ -70,7 +70,7 @@ void PhoneBook::search() {
 		std::cout << "Oops! You've entered an invalid index 😅" << std::endl;
 		return;
 	}
-	displayContact(this->contacts[index]);
+	displayContact(_contacts[index]);
 }
 
 void PhoneBook::displayContactEntries() {
@@ -81,9 +81,9 @@ void PhoneBook::displayContactEntries() {
 	for (int i = 0; i < 8; i++) {
 		std::cout
 			<< std::setw(10) << std::right << i << "|"
-			<< std::setw(10) << std::right << validateInput(this->contacts[i].getFirstName()) << "|"
-			<< std::setw(10) << std::right << validateInput(this->contacts[i].getLastName()) << "|"
-			<< std::setw(10) << std::right << validateInput(this->contacts[i].getNickName()) << "\n";
+			<< std::setw(10) << std::right << _validateInput(_contacts[i].getFirstName()) << "|"
+			<< std::setw(10) << std::right << _validateInput(_contacts[i].getLastName()) << "|"
+			<< std::setw(10) << std::right << _validateInput(_contacts[i].getNickName()) << "\n";
 	}
 	std::cout << std::endl;
 }

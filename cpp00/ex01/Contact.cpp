@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:01:13 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/05 21:46:27 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/06 20:53:43 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,51 +21,51 @@ Contact::Contact(
 	const std::string& phoneNumber,
 	const std::string& darkestSecret
 )
-	: firstName(firstName)
-	, lastName(lastName)
-	, nickName(nickName)
-	, phoneNumber(phoneNumber)
-	, darkestSecret(darkestSecret) {
+	: _firstName(firstName)
+	, _lastName(lastName)
+	, _nickName(nickName)
+	, _phoneNumber(phoneNumber)
+	, _darkestSecret(darkestSecret) {
 }
 
 Contact::~Contact() {}
 
 void Contact::setFirstName(const std::string& firstName) {
-	this->firstName = firstName;
+	_firstName = firstName;
 }
 
 void Contact::setLastName(const std::string& lastName) {
-	this->lastName = lastName;
+	_lastName = lastName;
 }
 
 void Contact::setNickName(const std::string& nickName) {
-	this->nickName = nickName;
+	_nickName = nickName;
 }
 
 void Contact::setPhoneNumber(const std::string& phoneNumber) {
-	this->phoneNumber = phoneNumber;
+	_phoneNumber = phoneNumber;
 }
 
 void Contact::setDarkestSecret(const std::string& darkestSecret) {
-	this->darkestSecret = darkestSecret;
+	_darkestSecret = darkestSecret;
 }
 
 const std::string& Contact::getFirstName() const  {
-	return firstName;
+	return _firstName;
 }
 
 const std::string& Contact::getLastName() const {
-	return lastName;
+	return _lastName;
 }
 
 const std::string& Contact::getNickName() const {
-	return nickName;
+	return _nickName;
 }
 
 const std::string& Contact::getPhoneNumber() const {
-	return phoneNumber;
+	return _phoneNumber;
 }
 
 const std::string& Contact::getDarkestSecret() const {
-	return darkestSecret;
+	return _darkestSecret;
 }

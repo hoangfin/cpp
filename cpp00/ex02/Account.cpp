@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 13:56:45 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/06 22:34:52 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/07 14:10:33 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ Account::~Account(void) {
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";closed" << std::endl;
 }
+
+int Account::getNbAccounts(void) { return _nbAccounts; }
+int Account::getTotalAmount(void) { return _totalAmount; }
+int Account::getNbDeposits(void) { return _totalNbDeposits; }
+int Account::getNbWithdrawals(void) { return _totalNbWithdrawals; }
 
 void Account::_displayTimestamp(void) {
 	std::time_t now = std::time(nullptr);
@@ -107,3 +112,5 @@ bool Account::makeWithdrawal(int withdrawal) {
 	}
 	return has_succeeded;
 }
+
+int Account::checkAmount(void) const { return _amount; }

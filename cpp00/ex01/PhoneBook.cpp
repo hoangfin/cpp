@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 18:45:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/06 20:55:27 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/08 14:17:52 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <iomanip>
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() {}
+PhoneBook::PhoneBook() : _index(0) {}
 
 PhoneBook::~PhoneBook() {}
 
@@ -31,22 +31,32 @@ void PhoneBook::add() {
 
 	std::cout << "Enter first name: ";
 	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return;
 	contact.setFirstName(input);
 
 	std::cout << "Enter last name: ";
 	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return;
 	contact.setLastName(input);
 
 	std::cout << "Enter nickname: ";
 	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return;
 	contact.setNickName(input);
 
 	std::cout << "Enter phone number: ";
 	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return;
 	contact.setPhoneNumber(input);
 
 	std::cout << "Enter darkest secret: ";
 	std::getline(std::cin, input);
+	if (std::cin.eof())
+		return;
 	contact.setDarkestSecret(input);
 
 	_contacts[_index % 8] = contact;
@@ -59,6 +69,8 @@ void PhoneBook::search() {
 	std::cout << "Enter index to view contact detail: ";
 	int index = -1;
 	std::cin >> index;
+	if (std::cin.eof())
+		return;
 	if (std::cin.fail()) {
 		std::cout << "Oops! Please enter a number 😅" << std::endl;
 		std::cin.clear();

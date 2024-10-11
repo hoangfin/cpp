@@ -1,7 +1,7 @@
 NAME := phonebook
 
 CXX := c++
-CXXFLAGS := -g -fsanitize=address -Wall -Wextra -Werror
+CXXFLAGS := -Wall -Wextra -Werror
 
 .PHONY := all clean fclean re
 

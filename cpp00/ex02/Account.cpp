@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 13:56:45 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/07 14:10:33 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/08 14:51:42 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ Account::Account() {
 	_nbWithdrawals = 0;
 }
 
-Account::Account(int initial_deposit) : Account() {
-	_amount = initial_deposit;
+Account::Account(int initial_deposit) : _amount(initial_deposit) {
+	_nbAccounts++;
+	_accountIndex = _nbAccounts - 1;
+	_nbDeposits = 0;
+	_nbWithdrawals = 0;
 	_totalAmount += _amount;
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";created" << std::endl;
@@ -46,9 +49,11 @@ int Account::getNbDeposits(void) { return _totalNbDeposits; }
 int Account::getNbWithdrawals(void) { return _totalNbWithdrawals; }
 
 void Account::_displayTimestamp(void) {
-	std::time_t now = std::time(nullptr);
+	std::time_t now = std::time(NULL);
 	std::tm *localTime = localtime(&now);
-	std::cout << "[" << std::put_time(localTime, "%Y%m%d_%H%M%S") << "]";
+	char format[80];
+	std::strftime(format, sizeof(format), "%Y%m%d_%H%M%S", localTime);
+	std::cout << "[" << format << "]";
 }
 
 void Account::displayAccountsInfos(void) {

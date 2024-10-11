@@ -1,7 +1,7 @@
 NAME := dreamjob
 
-CXX := c++
-CXXFLAGS := -g -fsanitize=address -Wall -Wextra
+CXX := c++ -std=c++98
+CXXFLAGS := -Wall -Wextra -Werror
 
 .PHONY := all clean fclean re
 

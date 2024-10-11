@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 15:21:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/06 13:49:15 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/08 14:16:29 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int main(void) {
 	{
 		std::cout << "🤔 What now? (ADD | SEARCH | EXIT) ";
 		std::getline(std::cin, command);
+		if (std::cin.eof()) {
+			std::cout << std::endl;
+			phoneBook.exit();
+			break;
+		}
 		if (command == "EXIT") {
 			phoneBook.exit();
 			break;
@@ -36,8 +41,18 @@ int main(void) {
 		}
 		if (command == "ADD") {
 			phoneBook.add();
+			if (std::cin.eof()) {
+				std::cout << std::endl;
+				phoneBook.exit();
+				break;
+			}
 		} else if (command == "SEARCH") {
 			phoneBook.search();
+			if (std::cin.eof()) {
+				std::cout << std::endl;
+				phoneBook.exit();
+				break;
+			}
 		}
 	}
 	return 0;

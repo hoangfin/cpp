@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 14:50:40 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/11 15:34:15 by hoatran          ###   ########.fr       */
+/*   Created: 2024/10/07 21:29:29 by hoatran           #+#    #+#             */
+/*   Updated: 2024/10/11 15:31:20 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_HPP
-# define HARL_HPP
+#include <iostream>
+#include "Harl.hpp"
 
-#include <string>
+int main(int argc, char **argv) {
+	Harl harl;
 
-class Harl {
-	private:
-		typedef void (Harl::*Logger)();
-		void debug();
-		void info();
-		void warning();
-		void error();
-
-	public:
-		Harl();
-		~Harl();
-		void complain(std::string level);
-};
-
-#endif
+	if (argc != 2) {
+		std::cerr << "Program requires exactly one argument: level" << std::endl;
+		return 1;
+	}
+	harl.complain(argv[1]);
+	return 0;
+}

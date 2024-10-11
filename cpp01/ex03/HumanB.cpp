@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 23:35:30 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/09 00:00:21 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/11 20:40:58 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ void HumanB::setWeapon(Weapon& weapon) {
 }
 
 void HumanB::attack() {
-	std::cout << _name << " attacks with their " << _weapon->getType() << std::endl;
+	if (_weapon == nullptr)
+		std::cout << _name << " attacks with their null" << std::endl;
+	else
+		std::cout << _name << " attacks with their " << _weapon->getType() << std::endl;
 }

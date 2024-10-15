@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 23:45:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/13 19:01:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/15 00:25:53 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,43 +53,43 @@ Fixed& Fixed::operator=(const Fixed& other) {
 	return *this;
 }
 
-bool Fixed::operator>(const Fixed& other) {
+bool Fixed::operator>(const Fixed& other) const {
 	return (_value > other._value);
 }
 
-bool Fixed::operator<(const Fixed& other) {
+bool Fixed::operator<(const Fixed& other) const {
 	return (_value < other._value);
 }
 
-bool Fixed::operator>=(const Fixed& other) {
+bool Fixed::operator>=(const Fixed& other) const {
 	return (_value >= other._value);
 }
 
-bool Fixed::operator<=(const Fixed& other) {
+bool Fixed::operator<=(const Fixed& other) const {
 	return (_value <= other._value);
 }
 
-bool Fixed::operator==(const Fixed& other) {
+bool Fixed::operator==(const Fixed& other) const {
 	return (_value == other._value);
 }
 
-bool Fixed::operator!=(const Fixed& other) {
+bool Fixed::operator!=(const Fixed& other) const {
 	return (_value != other._value);
 }
 
-Fixed Fixed::operator+(const Fixed& other) {
+Fixed Fixed::operator+(const Fixed& other) const {
 	return Fixed(this->toFloat() + other.toFloat());
 }
 
-Fixed Fixed::operator-(const Fixed& other) {
+Fixed Fixed::operator-(const Fixed& other) const {
 	return Fixed(this->toFloat() - other.toFloat());
 }
 
-Fixed Fixed::operator*(const Fixed& other) {
+Fixed Fixed::operator*(const Fixed& other) const {
 	return Fixed(this->toFloat() * other.toFloat());
 }
 
-Fixed Fixed::operator/(const Fixed& other) {
+Fixed Fixed::operator/(const Fixed& other) const {
 	return Fixed(this->toFloat() / other.toFloat());
 }
 

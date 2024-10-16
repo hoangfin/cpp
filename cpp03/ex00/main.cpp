@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:24:19 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 00:07:27 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/16 13:57:57 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 #include "ClapTrap.hpp"
 
 int main(void) {
-	ClapTrap react("React");
-	ClapTrap vue("Vue");
-	ClapTrap svelte("Svelte");
+	{
+		ClapTrap alpha("Alpha");
+		ClapTrap beta("Beta");
 
-	std::cout << "=======================" << std::endl;
-	react.attack("Vue");
-	vue.takeDamage(1);
+		alpha.attack("Beta");
+		beta.takeDamage(5);
+		beta.beRepaired(2);
+		beta.attack("Alpha");
+		alpha.takeDamage(3);
+		alpha.beRepaired(1);
+	}
+	std::cout << std::endl;
+	{
+		ClapTrap alpha("Alpha");
+		ClapTrap beta("Beta");
 
-	svelte.attack("Vue");
-	vue.takeDamage(3);
-
-	vue.beRepaired(2);
-
-	react.attack("Svelte");
-	svelte.takeDamage(10);
-	svelte.attack("React");
-	react.takeDamage(0);
-
-	std::cout << "=======================" << std::endl;
+		for (int i = 0; i < 10; i++) {
+			alpha.attack("Beta");
+			beta.takeDamage(1);
+		}
+		beta.attack("Alpha");
+	}
 	return 0;
 }

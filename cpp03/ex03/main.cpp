@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 16:38:50 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 20:45:58 by hoatran          ###   ########.fr       */
+/*   Created: 2024/10/15 23:24:19 by hoatran           #+#    #+#             */
+/*   Updated: 2024/10/16 23:07:23 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRAG_TRAP_HPP
-# define FRAG_TRAP_HPP
+#include <iostream>
+#include "DiamondTrap.hpp"
 
-#include "ClapTrap.hpp"
+int main(void) {
+	{
+		DiamondTrap diamond("Diamond");
+	}
+	std::cout << std::endl;
 
-class FragTrap: public ClapTrap {
-	public:
-		FragTrap() = delete;
-		explicit FragTrap(std::string name);
-		FragTrap(const FragTrap& fragTrap);
-		~FragTrap();
-
-		FragTrap& operator=(const FragTrap& fragTrap);
-
-		void attack(const std::string& target) override;
-		void highFivesGuys(void);
-};
-
-#endif
+	return 0;
+}

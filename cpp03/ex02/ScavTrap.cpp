@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:25:05 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 16:26:40 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/16 23:53:24 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ ScavTrap::~ScavTrap() {
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& scavTrap) {
+	std::cout << "ScavTrap copy assignment invoked." << std::endl;
 	if (this != &scavTrap) {
 		ClapTrap::operator=(scavTrap);
 	}

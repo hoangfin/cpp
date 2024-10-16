@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:50:30 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 16:00:51 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/16 23:59:06 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ ClapTrap::~ClapTrap() {
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& clapTrap) {
+	std::cout << "ClapTrap copy assignment invoked." << std::endl;
 	if (this != &clapTrap) {
 		_name = clapTrap._name;
 		_hitPoints = clapTrap._hitPoints;

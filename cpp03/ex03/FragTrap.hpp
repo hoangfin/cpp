@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:38:50 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 20:45:58 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/16 20:49:29 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap: public ClapTrap {
+class FragTrap: virtual public ClapTrap {
 	public:
 		FragTrap() = delete;
 		explicit FragTrap(std::string name);

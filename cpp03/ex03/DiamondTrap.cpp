@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:14:39 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 23:57:15 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/17 13:56:12 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void DiamondTrap::attack(const std::string& target) {
 }
 
 void DiamondTrap::whoAmI() {
-	std::cout << "DiamondTrap " << _name << ", ClapTrap " << ClapTrap::_name << std::endl;
+	std::cout << "whoAmI()::I am " << _name << ", base class ClapTrap name is " << ClapTrap::_name << std::endl;
 }

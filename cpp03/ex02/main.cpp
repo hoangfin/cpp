@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:24:19 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/16 16:55:42 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/17 13:52:59 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 
 int main(void) {
 	{
-		FragTrap omega("Omega");
-		FragTrap gamma("Gamma");
+		FragTrap foo("foo");
+		FragTrap baz("baz");
 
-		omega.attack("Gamma");
-		gamma.takeDamage(20);
-		gamma.beRepaired(2);
-		gamma.attack("Omega");
-		omega.takeDamage(20);
-		omega.beRepaired(5);
+		foo.attack("baz");
+		baz.takeDamage(30);
+		baz.beRepaired(2);
+		baz.attack("foo");
+		foo.takeDamage(30);
+		foo.beRepaired(5);
+
+		foo.highFivesGuys();
+		baz.highFivesGuys();
 	}
 	std::cout << std::endl;
 

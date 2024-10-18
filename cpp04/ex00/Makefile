@@ -7,7 +7,9 @@ CXXFLAGS := -g -fsanitize=address -Wall -Wextra -Werror
 SOURCES :=	main.cpp \
 			Animal.cpp \
 			Cat.cpp \
-			Dog.cpp
+			Dog.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp
 
 OBJECTS := $(SOURCES:%.cpp=%.o)
 

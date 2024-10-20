@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 00:54:24 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/20 01:58:21 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/20 15:46:40 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ const std::string& AMateria::getType() const {
 }
 
 void AMateria::use(ICharacter& target) {
-	std::cout << _type << ": ..................." << std::endl;
+	std::cout << "AMateria: '* ..... " << target.getName() << " .... *'" << std::endl;
 }

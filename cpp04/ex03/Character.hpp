@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 02:03:26 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/20 02:10:10 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/20 12:30:17 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,14 @@
 # include "ICharacter.hpp"
 
 class Character : public ICharacter {
+	private:
+		std::string _name;
+		AMateria** _amaterias;
+		static const int MAX_SLOTS = 4;
+
 	public:
 		Character();
+		Character(const std::string& name);
 		Character(const Character& character);
 		~Character();
 

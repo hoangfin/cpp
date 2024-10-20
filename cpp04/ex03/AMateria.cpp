@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 00:54:24 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/20 15:46:40 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/21 01:08:33 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,15 @@
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 
-AMateria::AMateria() : _type("Undefined AMaterial") {
-	std::cout << "AMateria default constructor called" << std::endl;
-}
+AMateria::AMateria() : _type("Undefined AMaterial") {}
 
-AMateria::AMateria(const std::string& type) : _type(type) {
-	std::cout << "AMateria constructor called" << std::endl;
-}
+AMateria::AMateria(const std::string& type) : _type(type) {}
 
-AMateria::AMateria(const AMateria& amateria) : _type(amateria._type) {
-	std::cout << "AMateria copy constructor called" << std::endl;
-}
+AMateria::AMateria(const AMateria& amateria) : _type(amateria._type) {}
 
-AMateria::~AMateria() {
-	std::cout << "AMateria destructor called" << std::endl;
-}
+AMateria::~AMateria() {}
 
 AMateria& AMateria::operator=(const AMateria& materia) {
-	std::cout << "AMateria copy assignment called" << std::endl;
 	if (this != &materia) {
 		this->_type = materia._type;
 	}

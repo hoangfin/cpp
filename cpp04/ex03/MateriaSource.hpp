@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:58:51 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/20 15:29:31 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/20 21:34:41 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 
 class MateriaSource : public IMateriaSource {
 	private:
-		AMateria** _amaterias;
-		static const int MAX_NUM_OF_SOURCES = 4;
+		AMateria* _amaterias[4];
 
 	public:
 		MateriaSource();

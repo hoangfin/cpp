@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:58:07 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/20 15:52:05 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/21 01:10:07 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,28 @@
 #include "Ice.hpp"
 #include "Cure.hpp"
 
-MateriaSource::MateriaSource() : _amaterias(new AMateria*[MateriaSource::MAX_NUM_OF_SOURCES]) {
-	std::cout << "MateriaSource default constructor called" << std::endl;
-	for (int i = 0; i < MateriaSource::MAX_NUM_OF_SOURCES; i++) {
+MateriaSource::MateriaSource() {
+	for (int i = 0; i < 4; i++) {
 		_amaterias[i] = nullptr;
 	}
 }
 
-MateriaSource::MateriaSource(const MateriaSource& ms) : _amaterias(new AMateria*[MateriaSource::MAX_NUM_OF_SOURCES]) {
-	std::cout << "MateriaSource copy constructor called" << std::endl;
-	for (int i = 0; i < MateriaSource::MAX_NUM_OF_SOURCES; i++) {
+MateriaSource::MateriaSource(const MateriaSource& ms) {
+	for (int i = 0; i < 4; i++) {
 		_amaterias[i] = ms._amaterias[i]->clone();
 	}
 }
 
 MateriaSource::~MateriaSource() {
-	std::cout << "MateriaSource destructor called" << std::endl;
-	for (int i = 0; i < MateriaSource::MAX_NUM_OF_SOURCES; i++) {
+	for (int i = 0; i < 4; i++) {
 		delete _amaterias[i];
 		_amaterias[i] = nullptr;
 	}
-	delete[] _amaterias;
 }
 
 MateriaSource& MateriaSource::operator=(const MateriaSource& ms) {
-	std::cout << "MateriaSource copy assignment called" << std::endl;
 	if (this != &ms) {
-		for (int i = 0; i < MateriaSource::MAX_NUM_OF_SOURCES; i++) {
+		for (int i = 0; i < 4; i++) {
 			delete _amaterias[i];
 			_amaterias[i] = ms._amaterias[i]->clone();
 		}
@@ -52,9 +47,9 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& ms) {
 void MateriaSource::learnMateria(AMateria* amateria) {
 	if (amateria == nullptr)
 		return;
-	for (int i = 0; i < MateriaSource::MAX_NUM_OF_SOURCES; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (_amaterias[i] == nullptr) {
-			_amaterias[i] = amateria;
+			_amaterias[i] = amateria->clone();
 			return;
 		}
 	}
@@ -62,7 +57,7 @@ void MateriaSource::learnMateria(AMateria* amateria) {
 }
 
 AMateria* MateriaSource::createMateria(const std::string& type) {
-	for (int i = 0; i < MateriaSource::MAX_NUM_OF_SOURCES; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (_amaterias[i] != nullptr && _amaterias[i]->getType() == type) {
 			return _amaterias[i]->clone();
 		}

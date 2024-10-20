@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 01:28:29 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/20 02:00:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/21 01:11:49 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,14 @@
 #include "ICharacter.hpp"
 
 Cure::Cure() : AMateria() {
-	std::cout << "Cure default constructor called" << std::endl;
 	_type = "cure";
 }
 
-Cure::Cure(const Cure& cure) : AMateria(cure) {
-	std::cout << "Cure copy constructor called" << std::endl;
-}
+Cure::Cure(const Cure& cure) : AMateria(cure) {}
 
-Cure::~Cure() {
-	std::cout << "Cure destructor called" << std::endl;
-}
+Cure::~Cure() {}
 
 Cure& Cure::operator=(const Cure& cure) {
-	std::cout << "Cure copy assignment called" << std::endl;
 	if (this != &cure) {
 		AMateria::operator=(cure);
 	}
@@ -40,5 +34,5 @@ AMateria* Cure::clone() const {
 }
 
 void Cure::use(ICharacter& target) {
-	std::cout << "Cure: '* heals " << target.getName() << "'s wounds *'" << std::endl;
+	std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:58:07 by hoatran           #+#    #+#             */
-/*   Updated: 2024/10/21 01:10:07 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/21 14:30:01 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ void MateriaSource::learnMateria(AMateria* amateria) {
 		return;
 	for (int i = 0; i < 4; i++) {
 		if (_amaterias[i] == nullptr) {
-			_amaterias[i] = amateria->clone();
+			_amaterias[i] = amateria;
 			return;
 		}
 	}
-	std::cout << "Reached limit, couldn't learn more materia!" << std::endl;
+	delete amateria;
+	std::cout << "Unable to learn more materia!" << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(const std::string& type) {

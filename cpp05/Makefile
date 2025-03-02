@@ -1,4 +1,4 @@
-NAME := interface
+NAME := bureaucrat
 CXX := c++
 CXXFLAGS := -g -fsanitize=address -Wall -Wextra -Werror
 

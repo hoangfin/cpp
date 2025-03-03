@@ -2,6 +2,8 @@
 
 #include <string>
 
+class Form;
+
 class Bureaucrat {
 	public:
 		class GradeTooHighException : public std::exception {
@@ -26,10 +28,11 @@ class Bureaucrat {
 		Bureaucrat(const Bureaucrat& other) = default;
 		~Bureaucrat() = default;
 
-		Bureaucrat& operator=(const Bureaucrat& other) = default;
+		Bureaucrat& operator=(const Bureaucrat& other) = delete;
 
 		void increaseGrade();
 		void descreaseGrade();
+		void signForm(const Form& form) const;
 
 		const std::string& getName() const;
 		int getGrade() const;

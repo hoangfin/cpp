@@ -22,6 +22,7 @@ class Bureaucrat {
 				std::string _message;
 		};
 
+		Bureaucrat() = delete;
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat& other) = default;
 		~Bureaucrat() = default;

@@ -24,6 +24,7 @@ class Form {
 				std::string _message;
 		};
 
+		Form() = delete;
 		Form(const std::string& name, bool isSigned, int signGrade, int executionGrade);
 		~Form() = default;
 

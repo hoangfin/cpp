@@ -24,6 +24,7 @@ class Bureaucrat {
 				std::string _message;
 		};
 
+		Bureaucrat() = delete;
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat& other) = default;
 		~Bureaucrat() = default;
@@ -32,7 +33,7 @@ class Bureaucrat {
 
 		void increaseGrade();
 		void descreaseGrade();
-		void signForm(const Form& form) const;
+		void signForm(Form& form) const;
 
 		const std::string& getName() const;
 		int getGrade() const;

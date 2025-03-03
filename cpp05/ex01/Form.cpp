@@ -39,8 +39,6 @@ void Form::beSigned(const Bureaucrat& bureaucrat) {
 	} else {
 		_isSigned = false;
 	}
-
-	bureaucrat.signForm(*this);
 }
 
 const std::string& Form::getName() const {
@@ -60,9 +58,9 @@ bool Form::isSigned() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Form& form) {
-	os	<< form.getName() << "["
-		<< "isSigned=" << (form.isSigned() ? "true" : "false")
-		<< ", signGrade=" << form.getSignGrade()
-		<< ", executionGrade=" << form.getExecutionGrade() << "]";
+	os	<< form.getName() << ", "
+		<< "status: " << (form.isSigned() ? "signed" : "unsigned")
+		<< " | sign grade: " << form.getSignGrade()
+		<< " | execution grade: " << form.getExecutionGrade();
 	return os;
 }

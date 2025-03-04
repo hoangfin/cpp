@@ -34,11 +34,13 @@ Form::Form(const std::string& name, bool isSigned, int signGrade, int executionG
 }
 
 void Form::beSigned(const Bureaucrat& bureaucrat) {
-	if (bureaucrat.getGrade() <= _signGrade) {
-		_isSigned = true;
-	} else {
-		_isSigned = false;
+	if (bureaucrat.getGrade() > _signGrade) {
+		throw GradeTooLowException(
+			"Bureaucrat " + bureaucrat.getName()
+			+ " couldn't sign " +_name + " because of low grade");
 	}
+
+	_isSigned = true;
 }
 
 const std::string& Form::getName() const {

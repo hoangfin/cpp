@@ -10,18 +10,18 @@ const std::string Intern::_forms[] = {
 	"ShrubberyCreationForm"
 };
 
-Intern::Creator Intern::_creators[] = {
-	[](const std::string& target) -> AForm* {
+std::function<AForm*(const std::string&)> Intern::_creators[] = {
+	[](const std::string& target) {
 		std::cout << "Intern creates PresidentialPardonForm" << std::endl;
 		return new PresidentialPardonForm(target);
 	},
 
-	[](const std::string& target) -> AForm* {
+	[](const std::string& target) {
 		std::cout << "Intern creates RobotomyRequestForm" << std::endl;
 		return new RobotomyRequestForm(target);
 	},
 
-	[](const std::string& target) -> AForm* {
+	[](const std::string& target) {
 		std::cout << "Intern creates ShrubberyCreationForm" << std::endl;
 		return new ShrubberyCreationForm(target);
 	}

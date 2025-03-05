@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 #include "AForm.hpp"
 
 class Intern {
@@ -14,8 +15,6 @@ class Intern {
 		AForm* makeForm(const std::string& formName, const std::string& formTarget);
 
 	private:
-		typedef AForm* (*Creator)(const std::string&);
-
 		static const std::string _forms[];
-		static Creator _creators[];
+		static std::function<AForm*(const std::string&)> _creators[];
 };

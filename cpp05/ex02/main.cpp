@@ -19,40 +19,48 @@
 
 int main(void) {
 	try {
-		Bureaucrat david("David", 99);
 		ShrubberyCreationForm scform("home");
 		RobotomyRequestForm rrform("home");
 		PresidentialPardonForm ppform("home");
 
-		std::cout << david << "\n";
 		std::cout << scform << "\n";
 		std::cout << rrform << "\n";
 		std::cout << ppform << "\n";
 		std::cout << "---\n";
+
+		Bureaucrat david("David", 99);
+		std::cout << david << "\n";
 		david.signForm(scform);
 		david.signForm(rrform);
 		david.signForm(ppform);
-
 		david.executeForm(scform);
 		david.executeForm(rrform);
 		david.executeForm(ppform);
 
-		// david.increaseGrade();
-		// std::cout << "Increase grade by 1 -> " << david << std::endl;
-		// david.signForm(form);
+		std::cout << "-------------\n";
 
-		// david.increaseGrade();
-		// std::cout << "Increase grade by 1 -> " << david << std::endl;
-		// david.signForm(form);
+		Bureaucrat paul("Paul", 25);
+		std::cout << paul << "\n";
+		paul.signForm(scform);
+		paul.signForm(rrform);
+		paul.signForm(ppform);
+		paul.executeForm(scform);
+		paul.executeForm(rrform);
+		paul.executeForm(ppform);
 
-		// david.increaseGrade();
-		// std::cout << "Increase grade by 1 -> " << david << std::endl;
-		// david.signForm(form);
+		std::cout << "-------------\n";
+
+		Bureaucrat michell("Michell", 72);
+		std::cout << michell << "\n";
+		michell.signForm(scform);
+		michell.signForm(rrform);
+		michell.signForm(ppform);
+		michell.executeForm(scform);
+		michell.executeForm(rrform);
+		michell.executeForm(ppform);
 	} catch(const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
-
-	std::cout << "==========================================\n";
 
 	return 0;
 }

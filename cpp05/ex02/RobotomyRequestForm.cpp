@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include "RobotomyRequestForm.hpp"
 #include "Bureaucrat.hpp"
 
@@ -9,8 +10,15 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
 	AForm::execute(executor);
+	std::cout << "Bruuuuuhhhhhhzzzzzzzzzzz .....\n";
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dist(0, 1);
+	int result = dist(gen);
+
 	std::cout
-		<< "Bruuuuuhhhhhhzzzzzzzzzzz .....\n"
-		<< _target << R"( has been robotomized successfully 50% of the time)"
+		<< _target
+		<< (result ? " has been robotomized successfully" : " has failed robotomization")
 		<< std::endl;
 }

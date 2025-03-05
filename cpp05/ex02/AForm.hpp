@@ -31,7 +31,7 @@ class AForm {
 		AForm& operator=(const AForm&) = delete;
 
 		void beSigned(const Bureaucrat& bureaucrat);
-		virtual void execute(const Bureaucrat& executor) const;
+		virtual void execute(const Bureaucrat& executor) const = 0;
 
 		const std::string& getName() const;
 		bool isSigned() const;

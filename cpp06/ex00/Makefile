@@ -1,4 +1,4 @@
-NAME := intern
+NAME := convert
 CXX := c++
 CXXFLAGS := -g -fsanitize=address -Wall -Wextra -Werror
 

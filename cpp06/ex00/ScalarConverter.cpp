@@ -73,7 +73,7 @@ void ScalarConverter::_toDouble(const std::string& value) {
 	try {
 		long double dValue = std::stold(value);
 		std::cout << "\ndouble: " << std::fixed << std::setprecision(1) << dValue;
-	} catch(const std::invalid_argument& e) {
+	} catch(const std::exception& e) {
 		std::cout << "\ndouble: impossible";
 	}
 }

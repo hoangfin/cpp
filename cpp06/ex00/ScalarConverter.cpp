@@ -44,8 +44,13 @@ void ScalarConverter::_toChar(const std::string& value) {
 			throw std::out_of_range("Out of char range");
 		}
 
-		char c = static_cast<char>(intValue);
-		std::cout << "char: '" << c << "'";
+		bool isDisplayable = (intValue >= 32 && intValue <= 126) && !(intValue >= '0' && intValue <= '9');
+
+		if (!isDisplayable) {
+			std::cout << "char: Non displayable";
+		} else {
+			std::cout << "char: '" << static_cast<char>(intValue) << "'";
+		}
 	} catch(const std::exception& e) {
 		std::cout << "char: impossible";
 	}

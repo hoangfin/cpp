@@ -4,11 +4,11 @@
 
 class ScalarConverter {
 	public:
-		ScalarConverter() = default;
-		ScalarConverter(const ScalarConverter&) = default;
-		~ScalarConverter() = default;
+		ScalarConverter() = delete;
+		ScalarConverter(const ScalarConverter&) = delete;
+		~ScalarConverter() = delete;
 
-		ScalarConverter& operator=(const ScalarConverter&) = default;
+		ScalarConverter& operator=(const ScalarConverter&) = delete;
 
 		static void convert(const std::string& value);
 

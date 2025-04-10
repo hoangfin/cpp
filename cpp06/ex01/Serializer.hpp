@@ -5,11 +5,11 @@
 
 class Serializer {
 	public:
-		Serializer() = default;
-		Serializer(const Serializer&) = default;
-		~Serializer() = default;
+		Serializer() = delete;
+		Serializer(const Serializer&) = delete;
+		~Serializer() = delete;
 
-		Serializer& operator=(const Serializer&) = default;
+		Serializer& operator=(const Serializer&) = delete;
 
 		static uintptr_t serialize(Data* ptr);
 		static Data* deserialize(uintptr_t raw);

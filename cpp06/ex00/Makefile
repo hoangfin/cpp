@@ -1,6 +1,6 @@
 NAME := convert
 CXX := c++
-CXXFLAGS := -g -fsanitize=address -Wall -Wextra -Werror
+CXXFLAGS := -std=c++17 -Wall -Wextra -Werror
 
 .PHONY := all clean fclean re
 

@@ -5,21 +5,9 @@
 #include "ScalarConverter.hpp"
 
 void ScalarConverter::convert(const std::string& value) {
-	if (value.length() == 1) {
-		char c = value.at(0);
-		bool isDisplayable = (c >= 32 && c <= 126) && !(c >= '0' && c <= '9');
-		std::cout
-			<< "char: " << (isDisplayable ? std::string(1, c) : "Non displayable")
-			<< "\nint: " << static_cast<int>(c)
-			<< "\nfloat: " << static_cast<float>(c)
-			<< "\ndouble: " << static_cast<double>(c)
-			<< std::endl;
-		return;
-	}
-
 	std::regex regex(R"(^(-?[0-9]+(\.[0-9]+)?f?|nan|(-|\+)?inff?)$)");
 
-	if (!std::regex_match(value, regex)) {
+	if (value.length() > 1 && std::regex_match(value, regex) == false) {
 		std::cout
 			<< "char: impossible"
 			<< "\nint: impossible"
@@ -37,23 +25,27 @@ void ScalarConverter::convert(const std::string& value) {
 }
 
 void ScalarConverter::_toChar(const std::string& value) {
-	try {
-		int intValue = std::stoi(value);
-
-		if (intValue < std::numeric_limits<char>::min() || intValue > std::numeric_limits<char>::max()) {
-			throw std::out_of_range("Out of char range");
-		}
-
-		bool isDisplayable = (intValue >= 32 && intValue <= 126) && !(intValue >= '0' && intValue <= '9');
-
-		if (!isDisplayable) {
-			std::cout << "char: Non displayable";
-		} else {
-			std::cout << "char: '" << static_cast<char>(intValue) << "'";
-		}
-	} catch(const std::exception& e) {
+	if (value.length() > 1) {
 		std::cout << "char: impossible";
+		return;
 	}
+
+	char c = value.at(0);
+
+	if (c < std::numeric_limits<char>::min() || c > std::numeric_limits<char>::max()) {
+		std::cout << "char: impossible";
+		return;
+	}
+
+	bool isDigit = (c >= '0' && c <= '9');
+	bool isDisplayable = (c >= 32 && c <= 126);
+
+	if (isDisplayable && !isDigit) {
+		std::cout << "char: '" << c << "'";
+		return;
+	}
+
+	std::cout << "char: Non displayable";
 }
 
 void ScalarConverter::_toInt(const std::string& value) {

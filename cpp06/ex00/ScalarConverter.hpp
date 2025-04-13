@@ -14,7 +14,5 @@ class ScalarConverter {
 
 	private:
 		static void _toChar(const std::string& value);
-		static void _toInt(const std::string& value);
-		static void _toFloat(const std::string& value);
-		static void _toDouble(const std::string& value);
+		static void _toNumber(const std::string& value);
 };

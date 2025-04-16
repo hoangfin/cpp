@@ -1,8 +1,8 @@
 #include <stdexcept>
 #include "Span.hpp"
 
-Span::Span(unsigned int n) : _n(n) {
-	_numbers.reserve(n);
+Span::Span(unsigned int n) : _n(static_cast<std::size_t>(n)) {
+	_numbers.reserve(_n);
 }
 
 void Span::addNumber(int number) {

@@ -5,6 +5,15 @@ int main(int argc, char **argv) {
 	if (argc != 2) {
 		std::cerr << "Error: could not open file." << std::endl;
 	}
+	(void)argv;
+	try {
+		BitcoinExchange btcExchange;
+
+		btcExchange.load(argv[1]);
+		// btcExchange.display();
+	} catch(const std::exception& e) {
+		std::cerr << e.what() << '\n';
+	}
 
 	return 0;
 }

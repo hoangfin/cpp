@@ -1,11 +1,10 @@
-NAME := btc
+NAME := RPN
 CXX := c++
 CXXFLAGS := -std=c++17 -Wall -Wextra -Werror
 
 .PHONY := all clean fclean re
 
-SOURCES :=	main.cpp \
-			BitcoinExchange.cpp
+SOURCES :=	main.cpp
 
 OBJECTS := $(SOURCES:%.cpp=%.o)
 

@@ -9,8 +9,7 @@ int main(int argc, char **argv) {
 	try {
 		BitcoinExchange btcExchange;
 
-		btcExchange.load(argv[1]);
-		// btcExchange.display();
+		btcExchange.display(argv[1]);
 	} catch(const std::exception& e) {
 		std::cerr << e.what() << '\n';
 	}

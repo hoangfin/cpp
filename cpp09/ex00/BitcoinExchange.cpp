@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <regex>
+#include <cmath>
 #include <iomanip>
 #include "BitcoinExchange.hpp"
 
@@ -25,7 +25,6 @@ BitcoinExchange::BitcoinExchange() {
 void BitcoinExchange::display(const std::string& filepath) {
 	std::ifstream ifs(filepath);
 	std::string line;
-	std::regex entryRegex(R"(^\d{4}-\d{2}-\d{2} \| \d+(\.\d+)?$)");
 
 	if (!ifs) {
 		throw std::runtime_error("Couldn't open " + filepath);
@@ -34,10 +33,9 @@ void BitcoinExchange::display(const std::string& filepath) {
 	std::getline(ifs, line);
 
 	while (std::getline(ifs, line) && !line.empty()) {
-		if (!std::regex_match(line, entryRegex)) {
-			std::cerr << "Error: bad input => " << std::endl;
-			continue;
-		}
+		std::string date = _getDate(line);
+
+		if (date.empty()) { continue; }
 
 		std::size_t delimPos = line.find(" | ");
 
@@ -46,25 +44,9 @@ void BitcoinExchange::display(const std::string& filepath) {
 			continue;
 		}
 
-		std::string date = line.substr(0, delimPos);
+		float value = _getValue(line.substr(delimPos + 3));
 
-		if (!_isValidDate(date)) {
-			std::cerr << "Error: bad input => " << date << std::endl;
-			continue;
-		}
-
-		float value;
-
-		try {
-			value = std::stof(line.substr(delimPos + 3));
-
-			if (value < 0.0 || value > 1000.0) {
-				throw std::runtime_error(std::to_string(value) + " is out of bounds [0, 1000]");
-			}
-		} catch(const std::exception& e) {
-			std::cerr << "Error: bad input => " << e.what() << std::endl;
-			continue;
-		}
+		if (value < 0.0f) { continue; }
 
 		auto exchangeRate = _getExchangeRate(date);
 
@@ -95,17 +77,19 @@ std::optional<float> BitcoinExchange::_getExchangeRate(const std::string& date) 
 	return std::prev(it)->second;
 }
 
-bool BitcoinExchange::_isValidDate(const std::string& date) {
+std::string BitcoinExchange::_getDate(const std::string& date) {
 	int year, month, day;
-    char delim;
+    char delim, delim2;
     std::istringstream iss(date);
 
-    if (!(iss >> year >> delim >> month >> delim >> day)) {
-        return false;
+	if (!(iss >> year >> delim >> month >> delim2 >> day)) {
+		std::cerr << "Error: bad input => " << date << std::endl;
+        return "";
     }
 
-    if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31) {
-        return false;
+    if (year < 2009 || delim != '-' || delim2 != '-' || month < 1 || month > 12 || day < 1 || day > 31) {
+		std::cerr << "Error: bad input => " << date << std::endl;
+        return "";
     }
 
     static const int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -115,5 +99,36 @@ bool BitcoinExchange::_isValidDate(const std::string& date) {
         maxDay = 29;
     }
 
-    return day <= maxDay;
+	if (day > maxDay) {
+		std::cerr << "Error: bad input => " << date << std::endl;
+        return "";
+	}
+
+	std::ostringstream oss;
+	oss << year << delim
+		<< (month < 10 ? "0" : "") << month << delim
+		<< (day < 10 ? "0" : "") << day;
+    return oss.str();
+}
+
+float BitcoinExchange::_getValue(const std::string& value) {
+	float fValue;
+	std::istringstream iss(value);
+
+	if (!(iss >> fValue) || !(iss >> std::ws).eof()) {
+		std::cerr << "Error: bad input => " << value << std::endl;
+		return -1.0f;
+	}
+
+	if (fValue < 0.0) {
+		std::cerr << "Error: not a positive number." << std::endl;
+		return -1.0f;
+	}
+
+	if (fValue > 1000.0f) {
+		std::cerr << "Error: too large a number." << std::endl;
+		return -1.0f;
+	}
+
+	return fValue;
 }

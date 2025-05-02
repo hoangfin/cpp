@@ -40,7 +40,7 @@ void BitcoinExchange::display(const std::string& filepath) {
 		std::size_t delimPos = line.find(" | ");
 
 		if (delimPos == std::string::npos) {
-			std::cerr << "Error: bad input => Couldn't find |" << std::endl;
+			std::cerr << "Error: bad input => ' | ' not found" << std::endl;
 			continue;
 		}
 

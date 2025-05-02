@@ -4,7 +4,8 @@ CXXFLAGS := -std=c++17 -Wall -Wextra -Werror
 
 .PHONY := all clean fclean re
 
-SOURCES :=	main.cpp
+SOURCES :=	main.cpp \
+			RPN.cpp
 
 OBJECTS := $(SOURCES:%.cpp=%.o)
 

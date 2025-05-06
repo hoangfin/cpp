@@ -9,7 +9,8 @@ int main(int argc, char **argv) {
 
 	try {
 		PmergeMe pm(argv + 1);
-		pm.sort();
+		pm.sortVector();
+		pm.printResult();
 	} catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 		return 1;

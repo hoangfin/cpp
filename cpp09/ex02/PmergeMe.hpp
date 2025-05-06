@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <set>
+#include <chrono>
 
 class PmergeMe {
 	public:
@@ -11,12 +12,13 @@ class PmergeMe {
 
 		PmergeMe& operator=(const PmergeMe&) = default;
 
-		void sort();
+		void sortVector();
+		void sortSet();
+		void printResult();
 
 	private:
 		std::vector<int> _numberVector;
-		std::vector<std::pair<int, int>> _pairs;
 		std::set<int> _numberSet;
-
-		void _makePairs();
+		std::chrono::microseconds _executionTimeForVector;
+		// std::chrono::microseconds _executionTimeForSet;
 };

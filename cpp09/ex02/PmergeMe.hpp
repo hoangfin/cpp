@@ -19,6 +19,6 @@ class PmergeMe {
 	private:
 		std::vector<int> _numberVector;
 		std::set<int> _numberSet;
-		std::chrono::microseconds _executionTimeForVector;
+		std::chrono::duration<double, std::milli> _executionTimeForVector;
 		// std::chrono::microseconds _executionTimeForSet;
 };

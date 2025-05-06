@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <iomanip>
 #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(char **argv) {
@@ -23,7 +24,10 @@ PmergeMe::PmergeMe(char **argv) {
 void PmergeMe::sortVector() {
 	auto start = std::chrono::high_resolution_clock::now();
     const int size = _numberVector.size();
-    if (size <= 1) return;
+
+    if (size <= 1) {
+		return;
+	}
 
     // Step 1: Sort all adjacent pairs
     for (int i = 0; i < size - 1; i += 2) {
@@ -34,9 +38,11 @@ void PmergeMe::sortVector() {
 
     // Step 2: Collect larger elements of each pair and sort them
     std::vector<int> mainChain;
+
     for (int i = 1; i < size; i += 2) {
         mainChain.push_back(_numberVector[i]);
     }
+	
     std::sort(mainChain.begin(), mainChain.end());
 
     // Step 3: Insert smaller elements from pairs using binary search
@@ -54,7 +60,7 @@ void PmergeMe::sortVector() {
     _numberVector = mainChain;
 
 	auto end = std::chrono::high_resolution_clock::now();
-	_executionTimeForVector = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	_executionTimeForVector = std::chrono::duration<double, std::milli>(end - start);
 }
 
 void PmergeMe::sortSet() {
@@ -109,7 +115,7 @@ void PmergeMe::printResult() {
 
 	std::cout
 	<< "\nTime to process a range of " << total <<  " elements with std::vector : "
-	<< _executionTimeForVector.count() << " us"
+	<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
 	// << "\nTime to process a range of " << total <<  " elements with std::set : "
 	// << _executionTimeForSet.count() << " us"
 	<< std::endl;

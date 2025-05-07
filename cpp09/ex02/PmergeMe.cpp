@@ -1,14 +1,35 @@
 #include <iostream>
 #include <string>
+#include <charconv>
 #include <algorithm>
 #include <iomanip>
 #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(char **argv) {
+	int number;
+	std::istringstream iss;
+	std::string token;
+
 	while (*argv != NULL) {
-		int number = std::stoi(*argv);
-		_numberVector.push_back(number);
-		_numberList.push_back(number);
+		iss.clear();
+		iss.str(*argv);
+
+		while (iss >> token) {
+			auto result = std::from_chars(token.data(), token.data() + token.length(), number);
+
+			if (result.ec == std::errc::invalid_argument)
+				throw std::invalid_argument("Error: Not a valid integer.");
+			if (result.ec == std::errc::result_out_of_range)
+				throw std::runtime_error("Error: Number is too large/small for `int`.");
+			if (result.ptr != token.data() + token.length())
+				throw std::invalid_argument("Error: Not a valid integer.");
+			if (std::find(_numberVector.begin(), _numberVector.end(), number) != _numberVector.end())
+				throw std::runtime_error("Error: Duplicate number " + std::to_string(number));
+				
+			_numberVector.push_back(number);
+			_numberList.push_back(number);
+		}
+
 		argv++;
 	}
 
@@ -149,9 +170,9 @@ void PmergeMe::printResult() {
 	}
 
 	std::cout
-			<< "\nTime to process a range of " << total <<  " elements with std::vector : "
-			<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
-			<< "\nTime to process a range of " << total <<  " elements with std::set : "
-			<< _executionTimeForList.count() << " us"
-			<< std::endl;
+		<< "\nTime to process a range of " << total <<  " elements with std::vector : "
+		<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
+		<< "\nTime to process a range of " << total <<  " elements with std::set : "
+		<< _executionTimeForList.count() << " us"
+		<< std::endl;
 }

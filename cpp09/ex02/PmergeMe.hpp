@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <set>
+#include <list>
 #include <chrono>
 
 class PmergeMe {
@@ -13,12 +13,12 @@ class PmergeMe {
 		PmergeMe& operator=(const PmergeMe&) = default;
 
 		void sortVector();
-		void sortSet();
+		void sortList();
 		void printResult();
 
 	private:
 		std::vector<int> _numberVector;
-		std::set<int> _numberSet;
+		std::list<int> _numberList;
 		std::chrono::duration<double, std::milli> _executionTimeForVector;
-		// std::chrono::microseconds _executionTimeForSet;
+		std::chrono::duration<double, std::milli> _executionTimeForList;
 };

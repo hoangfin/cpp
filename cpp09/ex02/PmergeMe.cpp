@@ -8,7 +8,7 @@ PmergeMe::PmergeMe(char **argv) {
 	while (*argv != NULL) {
 		int number = std::stoi(*argv);
 		_numberVector.push_back(number);
-		_numberSet.emplace(number);
+		_numberList.push_back(number);
 		argv++;
 	}
 
@@ -22,36 +22,37 @@ PmergeMe::PmergeMe(char **argv) {
 }
 
 void PmergeMe::sortVector() {
-	auto start = std::chrono::high_resolution_clock::now();
-    const int size = _numberVector.size();
+	const int size = _numberVector.size();
 
     if (size <= 1) {
 		return;
 	}
 
-    // Step 1: Sort all adjacent pairs
+	auto start = std::chrono::high_resolution_clock::now();
+
+    // Sort all adjacent pairs
     for (int i = 0; i < size - 1; i += 2) {
         if (_numberVector[i] > _numberVector[i + 1]) {
             std::swap(_numberVector[i], _numberVector[i + 1]);
         }
     }
 
-    // Step 2: Collect larger elements of each pair and sort them
+    // Collect larger elements of each pair and sort them
     std::vector<int> mainChain;
 
     for (int i = 1; i < size; i += 2) {
         mainChain.push_back(_numberVector[i]);
     }
-	
+
     std::sort(mainChain.begin(), mainChain.end());
 
-    // Step 3: Insert smaller elements from pairs using binary search
+    // Insert smaller elements from pairs using binary search
     for (int i = 0; i < size; i += 2) {
         auto pos = std::lower_bound(mainChain.begin(), mainChain.end(), _numberVector[i]);
         mainChain.insert(pos, _numberVector[i]);
     }
 
-    // Step 4: Handle odd-length case
+    // Handle odd-length case
     if (size % 2 != 0) {
         auto pos = std::lower_bound(mainChain.begin(), mainChain.end(), _numberVector.back());
         mainChain.insert(pos, _numberVector.back());
@@ -63,60 +64,94 @@ void PmergeMe::sortVector() {
 	_executionTimeForVector = std::chrono::duration<double, std::milli>(end - start);
 }
 
-void PmergeMe::sortSet() {
-	const int n = _numberVector.size();
-    if (n <= 1) return;
+void PmergeMe::sortList() {
+	const std::size_t total = _numberList.size();
 
-    // Step 1: Sort pairs of elements (using insertion sort for small groups)
-    for (int i = 0; i < n - 1; i += 2) {
-        if (_numberVector[i] > _numberVector[i + 1]) {
-            std::swap(_numberVector[i], _numberVector[i + 1]);
-        }
-    }
+	if (total <= 1) {
+		return;
+	}
 
-    // Step 2: Create a sorted list of the larger elements in each pair
-    std::vector<int> largerElements;
-    for (int i = 1; i < n; i += 2) {
-        largerElements.push_back(_numberVector[i]);
-    }
-    std::sort(largerElements.begin(), largerElements.end());
+	auto start = std::chrono::high_resolution_clock::now();
+	auto it = _numberList.begin();
+	auto end = _numberList.end();
 
-    // Step 3: Insert the smaller elements from pairs into the sorted list
-    for (int i = 0; i < n; i += 2) {
-        auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), _numberVector[i]);
-        largerElements.insert(pos, _numberVector[i]);
-    }
+	while (it != end) {
+		auto nextIt = std::next(it, 1);
 
-    // Step 4: Handle odd-length case (last unpaired element)
-    if (n % 2 != 0) {
-        auto pos = std::lower_bound(largerElements.begin(), largerElements.end(), _numberVector.back());
-        largerElements.insert(pos, _numberVector.back());
-    }
+		if (*it > *nextIt) {
+			std::swap(*it, *nextIt);
+		}
 
-    // Copy the result back to the original vector
-    _numberVector = largerElements;
+		if (std::distance(it, end) < 2) {
+			break;
+		}
 
+		std::advance(it, 2);
+	}
 
+	std::list<int> sortedList;
+
+	it = std::next(_numberList.begin(), 1);
+
+	while (it != end) {
+		sortedList.push_back(*it);
+
+		if (std::distance(it, end) < 2) {
+			break;
+		}
+
+		std::advance(it, 2);
+	}
+
+	sortedList.sort();
+
+	it = _numberList.begin();
+
+	while (it != end) {
+		auto pos = std::lower_bound(sortedList.begin(), sortedList.end(), *it);
+		sortedList.insert(pos, *it);
+
+		if (std::distance(it, end) < 2) {
+			break;
+		}
+
+		std::advance(it, 2);
+	}
+
+	if (total % 2 != 0) {
+		auto pos = std::lower_bound(sortedList.begin(), sortedList.end(), _numberList.back());
+		sortedList.insert(pos, _numberList.back());
+	}
+
+	_numberList = sortedList;
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	_executionTimeForList = std::chrono::duration<double, std::milli>(endTime - start);
 }
 
 void PmergeMe::printResult() {
 	const std::size_t total = _numberVector.size();
 
-	if (total != _numberSet.size()) {
+	if (total != _numberList.size()) {
 		throw std::runtime_error("Error: Total elements in std::vector and std::set mismatched");
 	}
 
 	std::cout << "After:";
 
-	for (std::size_t i = 0; i < total; i++) {
-		// if ()
-		std::cout << " " << _numberVector[i];
+	auto lIt = _numberList.begin();
+
+	for (auto vIt = _numberVector.begin(); vIt != _numberVector.end(); vIt++, lIt++) {
+		if (*vIt != *lIt) {
+			throw std::runtime_error("Error: Element value in std::vector and std::set mismatched");
+		}
+
+		std::cout << " " << *vIt;
 	}
 
 	std::cout
-	<< "\nTime to process a range of " << total <<  " elements with std::vector : "
-	<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
-	// << "\nTime to process a range of " << total <<  " elements with std::set : "
-	// << _executionTimeForSet.count() << " us"
-	<< std::endl;
+			<< "\nTime to process a range of " << total <<  " elements with std::vector : "
+			<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
+			<< "\nTime to process a range of " << total <<  " elements with std::set : "
+			<< _executionTimeForList.count() << " us"
+			<< std::endl;
 }

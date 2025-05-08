@@ -25,6 +25,8 @@ PmergeMe::PmergeMe(char **argv) {
 				throw std::invalid_argument("Error: Not a valid integer.");
 			if (std::find(_numberVector.begin(), _numberVector.end(), number) != _numberVector.end())
 				throw std::runtime_error("Error: Duplicate number " + std::to_string(number));
+			if (number < 0)
+				throw std::invalid_argument("Error: Number must be > 0");
 
 			_numberVector.push_back(number);
 			_numberList.push_back(number);
@@ -88,6 +90,12 @@ void PmergeMe::_sortVector() {
         }
     }
 
+	if (size == 2) {
+		auto end = std::chrono::high_resolution_clock::now();
+		_executionTimeForVector = std::chrono::duration<double, std::milli>(end - start);
+		return;
+	}
+
     // Collect larger elements of each pair and sort them
     std::vector<int> sortedVector;
 
@@ -134,6 +142,12 @@ void PmergeMe::_sortList() {
 		}
 
 		std::advance(it, 2);
+	}
+
+	if (total == 2) {
+		auto end = std::chrono::high_resolution_clock::now();
+		_executionTimeForList = std::chrono::duration<double, std::milli>(end - start);
+		return;
 	}
 
 	std::list<int> sortedList;

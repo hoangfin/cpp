@@ -25,7 +25,7 @@ PmergeMe::PmergeMe(char **argv) {
 				throw std::invalid_argument("Error: Not a valid integer.");
 			if (std::find(_numberVector.begin(), _numberVector.end(), number) != _numberVector.end())
 				throw std::runtime_error("Error: Duplicate number " + std::to_string(number));
-				
+
 			_numberVector.push_back(number);
 			_numberList.push_back(number);
 		}
@@ -42,115 +42,10 @@ PmergeMe::PmergeMe(char **argv) {
 	std::cout << std::endl;
 }
 
-void PmergeMe::sortVector() {
-	const int size = _numberVector.size();
+void PmergeMe::sort() {
+	_sortVector();
+	_sortList();
 
-    if (size <= 1) {
-		return;
-	}
-
-	auto start = std::chrono::high_resolution_clock::now();
-
-    // Sort all adjacent pairs
-    for (int i = 0; i < size - 1; i += 2) {
-        if (_numberVector[i] > _numberVector[i + 1]) {
-            std::swap(_numberVector[i], _numberVector[i + 1]);
-        }
-    }
-
-    // Collect larger elements of each pair and sort them
-    std::vector<int> mainChain;
-
-    for (int i = 1; i < size; i += 2) {
-        mainChain.push_back(_numberVector[i]);
-    }
-
-    std::sort(mainChain.begin(), mainChain.end());
-
-    // Insert smaller elements from pairs using binary search
-    for (int i = 0; i < size; i += 2) {
-        auto pos = std::lower_bound(mainChain.begin(), mainChain.end(), _numberVector[i]);
-        mainChain.insert(pos, _numberVector[i]);
-    }
-
-    // Handle odd-length case
-    if (size % 2 != 0) {
-        auto pos = std::lower_bound(mainChain.begin(), mainChain.end(), _numberVector.back());
-        mainChain.insert(pos, _numberVector.back());
-    }
-
-    _numberVector = mainChain;
-
-	auto end = std::chrono::high_resolution_clock::now();
-	_executionTimeForVector = std::chrono::duration<double, std::milli>(end - start);
-}
-
-void PmergeMe::sortList() {
-	const std::size_t total = _numberList.size();
-
-	if (total <= 1) {
-		return;
-	}
-
-	auto start = std::chrono::high_resolution_clock::now();
-	auto it = _numberList.begin();
-	auto end = _numberList.end();
-
-	while (it != end) {
-		auto nextIt = std::next(it, 1);
-
-		if (*it > *nextIt) {
-			std::swap(*it, *nextIt);
-		}
-
-		if (std::distance(it, end) < 2) {
-			break;
-		}
-
-		std::advance(it, 2);
-	}
-
-	std::list<int> sortedList;
-
-	it = std::next(_numberList.begin(), 1);
-
-	while (it != end) {
-		sortedList.push_back(*it);
-
-		if (std::distance(it, end) < 2) {
-			break;
-		}
-
-		std::advance(it, 2);
-	}
-
-	sortedList.sort();
-
-	it = _numberList.begin();
-
-	while (it != end) {
-		auto pos = std::lower_bound(sortedList.begin(), sortedList.end(), *it);
-		sortedList.insert(pos, *it);
-
-		if (std::distance(it, end) < 2) {
-			break;
-		}
-
-		std::advance(it, 2);
-	}
-
-	if (total % 2 != 0) {
-		auto pos = std::lower_bound(sortedList.begin(), sortedList.end(), _numberList.back());
-		sortedList.insert(pos, _numberList.back());
-	}
-
-	_numberList = sortedList;
-
-	auto endTime = std::chrono::high_resolution_clock::now();
-	_executionTimeForList = std::chrono::duration<double, std::milli>(endTime - start);
-}
-
-void PmergeMe::printResult() {
 	const std::size_t total = _numberVector.size();
 
 	if (total != _numberList.size()) {
@@ -175,4 +70,97 @@ void PmergeMe::printResult() {
 		<< "\nTime to process a range of " << total <<  " elements with std::set : "
 		<< _executionTimeForList.count() << " us"
 		<< std::endl;
+}
+
+void PmergeMe::_sortVector() {
+	const int size = _numberVector.size();
+
+    if (size <= 1) {
+		return;
+	}
+
+	auto start = std::chrono::high_resolution_clock::now();
+
+    // Sort all adjacent pairs
+    for (int i = 0; i < size - 1; i += 2) {
+        if (_numberVector[i] > _numberVector[i + 1]) {
+            std::swap(_numberVector[i], _numberVector[i + 1]);
+        }
+    }
+
+    // Collect larger elements of each pair and sort them
+    std::vector<int> sortedVector;
+
+    for (int i = 1; i < size - 1; i += 2) {
+        sortedVector.push_back(_numberVector[i]);
+    }
+
+    std::sort(sortedVector.begin(), sortedVector.end());
+
+    // Insert smaller elements from pairs using binary search
+    for (int i = 0; i < size - 1; i += 2) {
+        auto pos = std::lower_bound(sortedVector.begin(), sortedVector.end(), _numberVector[i]);
+        sortedVector.insert(pos, _numberVector[i]);
+    }
+
+    // Handle odd-length case
+    if (size % 2 != 0) {
+        auto pos = std::lower_bound(sortedVector.begin(), sortedVector.end(), _numberVector.back());
+        sortedVector.insert(pos, _numberVector.back());
+    }
+
+    _numberVector = sortedVector;
+
+	auto end = std::chrono::high_resolution_clock::now();
+	_executionTimeForVector = std::chrono::duration<double, std::milli>(end - start);
+}
+
+void PmergeMe::_sortList() {
+	const std::size_t total = _numberList.size();
+
+	if (total <= 1) {
+		return;
+	}
+
+	auto start = std::chrono::high_resolution_clock::now();
+	auto it = _numberList.begin();
+	auto end = _numberList.end();
+
+	while (it != end && std::distance(it, end) >= 2) {
+		auto nextIt = std::next(it, 1);
+
+		if (*it > *nextIt) {
+			std::swap(*it, *nextIt);
+		}
+
+		std::advance(it, 2);
+	}
+
+	std::list<int> sortedList;
+	it = std::next(_numberList.begin(), 1);
+
+	while (it != end && std::distance(it, end) >= 2) {
+		sortedList.push_back(*it);
+		std::advance(it, 2);
+	}
+
+	sortedList.sort();
+
+	it = _numberList.begin();
+
+	while (it != end && std::distance(it, end) >= 2) {
+		auto pos = std::lower_bound(sortedList.begin(), sortedList.end(), *it);
+		sortedList.insert(pos, *it);
+		std::advance(it, 2);
+	}
+
+	if (total % 2 != 0) {
+		auto pos = std::lower_bound(sortedList.begin(), sortedList.end(), _numberList.back());
+		sortedList.insert(pos, _numberList.back());
+	}
+
+	_numberList = sortedList;
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	_executionTimeForList = std::chrono::duration<double, std::milli>(endTime - start);
 }

@@ -12,8 +12,9 @@ class PmergeMe {
 
 		PmergeMe& operator=(const PmergeMe&) = default;
 
-		void sortVector();
-		void sortList();
+		void sort();
+		void _sortVector();
+		void _sortList();
 		void printResult();
 
 	private:

@@ -10,7 +10,7 @@ class RPN {
 		~RPN() = delete;
 
 		RPN& operator=(const RPN&) = delete;
-		static void calculate(const std::string& rpn);
+		static void calculate(char** argv);
 
 	private:
 		static constexpr bool _isRpnToken(const char token);

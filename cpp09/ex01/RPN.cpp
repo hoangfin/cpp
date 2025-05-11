@@ -59,26 +59,37 @@ constexpr long long RPN::_divide(long long a, long long b) {
 	return (a / b);
 }
 
-void RPN::calculate(const std::string& rpn) {
+void RPN::calculate(char** argv) {
 	std::stack<long long> stack;
-	std::istringstream iss(rpn);
+	std::istringstream iss;
 	std::string token;
 
-	while (iss >> token) {
-		if (token.length() > 1 || !_isRpnToken(token[0])) {
-			throw std::invalid_argument("Invalid argument: " + token);
+	while (*argv != NULL) {
+		iss.clear();
+		iss.str(*argv);
+
+		while (iss >> token) {
+			if (token.length() > 1 || !_isRpnToken(token[0])) {
+				throw std::invalid_argument("Invalid argument: " + token);
+			}
+
+			if (::isdigit(token[0])) {
+				stack.push(static_cast<int>(token[0] - 48));
+				continue;
+			}
+
+			if (stack.size() < 2) {
+				throw std::invalid_argument("Invalid argument: Require more operand(s) to perform operator " + token);
+			}
+
+			_handleCalculation(stack, token[0]);
 		}
 
-		if (::isdigit(token[0])) {
-			stack.push(static_cast<int>(token[0] - 48));
-			continue;
-		}
+		argv++;
+	}
 
-		if (stack.size() < 2) {
-			throw std::invalid_argument(token);
-		}
-
-		_handleCalculation(stack, token[0]);
+	if (stack.size() != 1) {
+		throw std::invalid_argument("Invalid argument: Require more operator(s)");
 	}
 
 	std::cout << stack.top() << std::endl;

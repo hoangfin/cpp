@@ -178,3 +178,11 @@ void PmergeMe::_sortList() {
 	auto endTime = std::chrono::high_resolution_clock::now();
 	_executionTimeForList = std::chrono::duration<double, std::milli>(endTime - start);
 }
+
+/**
+ * The Jacobsthal number at a specific point in the sequence may be calculated directly
+ * using the closed-form equation J(n) = 2(n) - (-1)(n) / 3
+ * */
+int PmergeMe::_getJacobsthalNumber(int n) {
+	return 
+}

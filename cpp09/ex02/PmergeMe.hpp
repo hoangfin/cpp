@@ -22,4 +22,6 @@ class PmergeMe {
 		std::list<int> _numberList;
 		std::chrono::duration<double, std::milli> _executionTimeForVector;
 		std::chrono::duration<double, std::milli> _executionTimeForList;
+
+		static int _getJacobsthalNumber(int n);
 };

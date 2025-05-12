@@ -3,6 +3,7 @@
 #include <charconv>
 #include <algorithm>
 #include <iomanip>
+#include <limits>
 #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(char **argv) {
@@ -45,33 +46,34 @@ PmergeMe::PmergeMe(char **argv) {
 }
 
 void PmergeMe::sort() {
-	_sortVector();
-	_sortList();
+	std::cout << PmergeMe::_getJacobsthalNumberByIndex(6) << std::endl;
+	// _sortVector();
+	// _sortList();
 
-	const std::size_t total = _numberVector.size();
+	// const std::size_t total = _numberVector.size();
 
-	if (total != _numberList.size()) {
-		throw std::runtime_error("Error: Total elements in std::vector and std::set mismatched");
-	}
+	// if (total != _numberList.size()) {
+	// 	throw std::runtime_error("Error: Total elements in std::vector and std::set mismatched");
+	// }
 
-	std::cout << "After:";
+	// std::cout << "After:";
 
-	auto lIt = _numberList.begin();
+	// auto lIt = _numberList.begin();
 
-	for (auto vIt = _numberVector.begin(); vIt != _numberVector.end(); vIt++, lIt++) {
-		if (*vIt != *lIt) {
-			throw std::runtime_error("Error: Element value in std::vector and std::set mismatched");
-		}
+	// for (auto vIt = _numberVector.begin(); vIt != _numberVector.end(); vIt++, lIt++) {
+	// 	if (*vIt != *lIt) {
+	// 		throw std::runtime_error("Error: Element value in std::vector and std::set mismatched");
+	// 	}
 
-		std::cout << " " << *vIt;
-	}
+	// 	std::cout << " " << *vIt;
+	// }
 
-	std::cout
-		<< "\nTime to process a range of " << total <<  " elements with std::vector : "
-		<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
-		<< "\nTime to process a range of " << total <<  " elements with std::set : "
-		<< _executionTimeForList.count() << " us"
-		<< std::endl;
+	// std::cout
+	// 	<< "\nTime to process a range of " << total <<  " elements with std::vector : "
+	// 	<< std::fixed << std::setprecision(4) << _executionTimeForVector.count() << " us"
+	// 	<< "\nTime to process a range of " << total <<  " elements with std::set : "
+	// 	<< _executionTimeForList.count() << " us"
+	// 	<< std::endl;
 }
 
 void PmergeMe::_sortVector() {
@@ -181,8 +183,17 @@ void PmergeMe::_sortList() {
 
 /**
  * The Jacobsthal number at a specific point in the sequence may be calculated directly
- * using the closed-form equation J(n) = 2(n) - (-1)(n) / 3
+ * using the closed-form equation: J(n) = (2^n - (-1)^n) / 3
  * */
-int PmergeMe::_getJacobsthalNumber(int n) {
-	return 
+std::size_t PmergeMe::_getJacobsthalNumberByIndex(std::size_t index) {
+	if (index == 0) return 0;
+	if (index == 1) return 1;
+
+	if (index >= std::numeric_limits<std::size_t>::digits) {
+		throw std::overflow_error("Error: Overflow occurred by index = " + std::to_string(index));
+	}
+
+	const std::size_t term1 = std::size_t{1} << index;	// 2^n
+	const int term2 = (index % 2 == 0 ? 1 : -1);		// (-1)^n
+	return static_cast<std::size_t>((term1 - term2) / 3);
 }

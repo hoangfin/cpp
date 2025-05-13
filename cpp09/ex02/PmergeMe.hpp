@@ -13,15 +13,15 @@ class PmergeMe {
 		PmergeMe& operator=(const PmergeMe&) = default;
 
 		void sort();
-		void _sortVector();
-		void _sortList();
-		void printResult();
 
 	private:
-		std::vector<int> _numberVector;
-		std::list<int> _numberList;
-		std::chrono::duration<double, std::milli> _executionTimeForVector;
-		std::chrono::duration<double, std::milli> _executionTimeForList;
+		std::vector<int> _vector;
+		std::list<int> _list;
 
-		static std::size_t _getJacobsthalNumberByIndex(std::size_t index);
+		std::chrono::duration<double, std::milli> _sortVector(std::vector<int> &vector);
+		std::chrono::duration<double, std::milli> _sortList(std::list<int> &list);
+		static std::vector<int> _jacobsthalVector(int n);
+		static std::list<int> _jacobsthalList(int n);
+		static void _insert(std::vector<int>& dest, const std::vector<int>& src);
+		static void _insert(std::list<int>& dest, const std::list<int>& src);
 };
